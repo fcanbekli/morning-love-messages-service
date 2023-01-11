@@ -7,6 +7,7 @@ Are you in a long-distance relationship with a significant other who lives in a 
 # How to use?
 Just fill required fields in lover-template.json and run service with path of this json file as first cli argument
 
+# LICENCE
 MIT License
 
 Copyright (c) 2023 Fatih Canbekli
