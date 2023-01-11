@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/go-co-op/gocron"
 	_ "github.com/mattn/go-sqlite3"
 	"math/rand"
@@ -34,9 +33,4 @@ func main() {
 		SendMessage(cfg.TargetPhone, cfg.Messages[index])
 	})
 	s.StartBlocking()
-}
-
-func hello(name string) {
-	message := fmt.Sprintf("Hi, %v", name)
-	fmt.Println(message)
 }
