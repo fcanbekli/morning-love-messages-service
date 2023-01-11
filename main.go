@@ -9,27 +9,31 @@ import (
 
 func main() {
 	//_ = SendMessage("Canim babam")
-	cfg := ParseConfigs("lover.json")
-	fmt.Println(cfg.Name)
-	fmt.Println(cfg.TargetPhone)
-	fmt.Println(cfg.Messages)
+	//	cfg := ParseConfigs("lover.json")
 
+	// 3
+	loc, err := time.LoadLocation("Turkey")
+	if err != nil {
+		// handle error
+	}
+
+	s := gocron.NewScheduler(loc)
+
+	s.Every(1).Day().At("12:45").Do(func() {
+		fmt.Println("Hello")
+	})
+
+	s.StartBlocking()
+	//Parse Configs
+
+	//Connect to Wp
+
+	//Send intro message (if required)
+
+	//Start cron job
 }
 
 func hello(name string) {
 	message := fmt.Sprintf("Hi, %v", name)
 	fmt.Println(message)
-}
-
-func runCronJobs() {
-	// 3
-	s := gocron.NewScheduler(time.UTC)
-
-	// 4
-	s.Every(1).Seconds().Do(func() {
-		hello("John Doe")
-	})
-
-	// 5
-	s.StartBlocking()
 }

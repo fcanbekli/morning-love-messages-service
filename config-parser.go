@@ -7,9 +7,12 @@ import (
 )
 
 type Config struct {
-	Name        string
-	TargetPhone string
-	Messages    []string
+	Name           string
+	TargetPhone    string
+	Messages       []string
+	Country        string
+	IsIntroMessage bool
+	IntroMessage   string
 }
 
 func ParseConfigs(path string) Config {
@@ -21,7 +24,7 @@ func ParseConfigs(path string) Config {
 	var configs Config
 	err = json.Unmarshal(data, &configs)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 	return configs
 }

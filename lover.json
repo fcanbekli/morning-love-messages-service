@@ -5,5 +5,8 @@
     "XXX",
     "YYY",
     "ZZZ"
-  ]
+  ],
+  "Country": "Turkey",
+  "IsIntroMessage": false,
+  "IntroMessage" : "Hello"
 }
