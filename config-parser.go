@@ -7,12 +7,13 @@ import (
 )
 
 type Config struct {
-	Name           string
-	TargetPhone    string
-	Messages       []string
-	Country        string
-	IsIntroMessage bool
-	IntroMessage   string
+	Name               string
+	TargetPhone        string
+	Messages           []string
+	Country            string
+	IsIntroMessage     bool
+	IntroMessage       string
+	MorningMessageHour string
 }
 
 func ParseConfigs(path string) Config {

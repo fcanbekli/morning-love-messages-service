@@ -4,33 +4,36 @@ import (
 	"fmt"
 	"github.com/go-co-op/gocron"
 	_ "github.com/mattn/go-sqlite3"
+	"math/rand"
+	"os"
 	"time"
 )
 
 func main() {
-	//_ = SendMessage("Canim babam")
-	//	cfg := ParseConfigs("lover.json")
+	//Parse Configs
+	cfg := ParseConfigs(os.Args[1])
+	//Connect to Wp
+	waConnect()
+	//Send intro message (if required)
+	if cfg.IsIntroMessage {
+		SendMessage(cfg.TargetPhone, cfg.IntroMessage)
+	}
 
-	// 3
-	loc, err := time.LoadLocation("Turkey")
+	//Start cron job
+	loc, err := time.LoadLocation(cfg.Country)
 	if err != nil {
-		// handle error
+		panic(err)
 	}
 
 	s := gocron.NewScheduler(loc)
 
-	s.Every(1).Day().At("12:45").Do(func() {
-		fmt.Println("Hello")
+	s.Every(1).Day().At(cfg.MorningMessageHour).Do(func() {
+		s := rand.NewSource(time.Now().Unix())
+		r := rand.New(s)
+		index := r.Intn(len(cfg.Messages))
+		SendMessage(cfg.TargetPhone, cfg.Messages[index])
 	})
-
 	s.StartBlocking()
-	//Parse Configs
-
-	//Connect to Wp
-
-	//Send intro message (if required)
-
-	//Start cron job
 }
 
 func hello(name string) {

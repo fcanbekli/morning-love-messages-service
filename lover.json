@@ -1,12 +1,13 @@
 {
-  "Name": "Havva",
-  "TargetPhone": "1231412",
+  "Name": "AAA",
+  "TargetPhone": "0000",
   "Messages" : [
     "XXX",
     "YYY",
     "ZZZ"
   ],
   "Country": "Turkey",
-  "IsIntroMessage": false,
-  "IntroMessage" : "Hello"
+  "IsIntroMessage": true,
+  "IntroMessage" : "",
+  "MorningMessageHour": "13:29"
 }

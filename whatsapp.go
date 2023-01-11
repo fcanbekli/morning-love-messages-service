@@ -13,10 +13,12 @@ import (
 	"os"
 )
 
-func waConnect() (*whatsmeow.Client, error) {
+var wpClient *whatsmeow.Client
+
+func waConnect() {
 	container, err := sqlstore.New("sqlite3", "file:wapp.db?_foreign_keys=on", waLog.Noop)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	deviceStore, err := container.GetFirstDevice()
 	if err != nil {
@@ -28,7 +30,7 @@ func waConnect() (*whatsmeow.Client, error) {
 		qrChan, _ := client.GetQRChannel(context.Background())
 		err = client.Connect()
 		if err != nil {
-			return nil, err
+			panic(err)
 		}
 		for evt := range qrChan {
 			if evt.Event == "code" {
@@ -40,21 +42,15 @@ func waConnect() (*whatsmeow.Client, error) {
 	} else {
 		err := client.Connect()
 		if err != nil {
-			return nil, err
+			panic(err)
 		}
 	}
-	return client, nil
+	wpClient = client
 }
 
-func SendMessage(msg string) error {
-	wac, err := waConnect()
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer wac.Disconnect()
-
-	_, err = wac.SendMessage(context.Background(), types.JID{
-		User:   "905325701373",
+func SendMessage(number string, msg string) error {
+	_, err := wpClient.SendMessage(context.Background(), types.JID{
+		User:   number,
 		Server: types.DefaultUserServer,
 	}, &waProto.Message{
 		Conversation: proto.String(msg),
